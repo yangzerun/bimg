@@ -36,21 +36,24 @@ func TestImageGifResize(t *testing.T) {
 	}
 }
 
-func TestResizeAnimatedGIF(t *testing.T) {
+func TestResizeAnimatedGIFToGIF(t *testing.T) {
 	if VipsMajorVersion >= 8 && VipsMinorVersion >= 12 {
 		i := initImage("test.gif")
 
-		metadata, err := Metadata(i.Image())
-		if err != nil {
-			t.Errorf("Metadata err: %#v", err)
-		}
+		// metadata, err := Metadata(i.Image())
+		// if err != nil {
+		// 	t.Errorf("Metadata err: %#v", err)
+		// }
 		var o Options
+		// o.Quality = 50
+		o.Width = 265
+		o.Height = 265
 		// if o.OriginSize {
-		if true {
-			dims := metadata.Size
-			o.Width = dims.Width
-			o.Height = dims.Height
-		}
+		// if true {
+		// 	dims := metadata.Size
+		// 	o.Width = dims.Width
+		// 	o.Height = dims.Height
+		// }
 
 		buf, err := Resize(i.Image(), o)
 		if err != nil {
@@ -62,18 +65,22 @@ func TestResizeAnimatedGIF(t *testing.T) {
 }
 func TestResizeAnimatedGIFToWebp(t *testing.T) {
 	if VipsMajorVersion >= 8 && VipsMinorVersion >= 12 {
-		i := initImage("test.gif")
+		i := initImage("gif_test.gif")
 
-		metadata, err := Metadata(i.Image())
-		if err != nil {
-			t.Errorf("Metadata err: %#v", err)
-		}
+		// metadata, err := Metadata(i.Image())
+		// if err != nil {
+		// 	t.Errorf("Metadata err: %#v", err)
+		// }
 		var o Options
+		// o.Quality = 50
+		// o.Lossless = false
 		// if o.OriginSize {
 		if true {
-			dims := metadata.Size
-			o.Width = dims.Width
-			o.Height = dims.Height
+			// dims := metadata.Size
+			// o.Width = dims.Width
+			// o.Height = dims.Height
+			o.Width = 265
+			o.Height = 265
 		}
 
 		buf, err := Resize(i.Image(), o)
@@ -81,7 +88,7 @@ func TestResizeAnimatedGIFToWebp(t *testing.T) {
 			t.Errorf("Cannot process the image: %#v", err)
 		}
 
-		Write("testdata/test_animated_to_wp.webp", buf)
+		Write("testdata/gif_test_animated_to_wp_thumb.webp", buf)
 	}
 }
 func TestResizeAnimatedWebp(t *testing.T) {

@@ -190,6 +190,7 @@ func applyDefaults(o Options, imageType ImageType) Options {
 }
 
 func saveImage(image *C.VipsImage, o Options) ([]byte, error) {
+	fmt.Println("saveImage,o.Lossless: ", o.Lossless)
 	saveOptions := vipsSaveOptions{
 		Quality:        o.Quality,
 		Type:           o.Type,
